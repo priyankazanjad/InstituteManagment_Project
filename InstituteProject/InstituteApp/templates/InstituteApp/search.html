@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block title %}
+    <title>Show Department Page</title>
+{% endblock %}
+{% block search %}
+    <ul class="navbar-nav ml-auto ">
+        <form method="post" class="form-inline" style="margin-right:auto">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" name="searchdata" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success " type="submit">Department</button>
+        </form>
+    </ul>
+{% endblock %}
+{% block content %}
+<h1 style="text-align:center";>Show Department</h1>
+<div class="container" style="width:50%;">
+<table class="table table-dark">
+<tr>
+    <th>Dept Id</th>
+    <th>Dept Name</th>
+    <th>Delete</th>
+    <th>Update</th>
+</tr>
+{% for dept in department %}
+<tr>
+    <td>{{dept.dept_id}}</td>
+    <td>{{dept.dept_name}}</td>
+    <td><a href="{% url 'delete_dept' dept.dept_name %}">
+        <button class="btn btn-danger">Delete</button></a></td>
+    <td><a href="{% url 'update_dept' dept.dept_name %}">
+        <button class="btn btn-warning">Update</button></a></td>
+</tr>
+{% endfor %}
+    </table>
+<br>
+<a href="{% url 'add_dept' %}"><button class="btn btn-success">Add Department</button></a>
+</div>
+<br>
+<h1 style="text-align:center";>Show Professor</h1>
+<div class="container" style="width:50%;">
+<table class="table table-dark">
+<tr>
+
+    <th>prof Name</th>
+    <th>Subject</th>
+    <th>Depatment</th>
+    <th>-</th>
+    <th>Delete</th>
+    <th>Update</th>
+</tr>
+{% for prof in professor %}
+<tr>
+    <td>{{prof.prof_name}}</td>
+    <td>{{prof.subject}}</td>
+    <td>
+    {% for d in prof.prof_id.all %}
+    <td>{{d.dept_name}}</td>
+    <br>
+    {% endfor %}
+    </td>
+    <td><a href="{% url 'delete_prof' prof.prof_name %}">
+        <button class="btn btn-danger">Delete</button></a></td>
+    <td><a href="{% url 'update_prof' prof.prof_name %}">
+        <button class="btn btn-warning">Update</button></a></td>
+</tr>
+    {% endfor %}
+    </table>
+<br>
+<a href="{% url 'add_dept' %}"><button class="btn btn-success">Add Professor</button></a>
+        </form>
+    </div>
+    <br>
+{% endfor %}
+    </table>
+<br>
+<a href="{% url 'add_dept' %}"><button class="btn btn-success">Add Professor</button></a>
+        </form>
+    </div>
+<br>
+<h1 style="text-align:center";>Show Student</h1>
+<div class="container" style="width:50%;">
+<table class="table table-dark">
+<tr>
+    <th>Roll No</th>
+    <th>Name</th>
+    <th>Marks</th>
+    <th>Delete</th>
+    <th>Update</th>
+</tr>
+{% for stu in student%}
+<tr>
+    <td>{{stu.rollno}}</td>
+    <td>{{stu.name}}</td>
+    <td>{{stu.marks}}</td>
+    <td><a href="{% url 'delete_stu' stu.id %}">
+        <button class="btn btn-danger">Delete</button></a></td>
+    <td><a href="{% url 'update_stu' stu.id %}">
+        <button class="btn btn-warning">Update</button></a></td>
+</tr>
+{% endfor %}
+    </table>
+<br>
+<a href="{% url 'add_stu' %}"><button class="btn btn-success">Add Student</button></a>
+        </form>
+    </div>
+{% endblock %}

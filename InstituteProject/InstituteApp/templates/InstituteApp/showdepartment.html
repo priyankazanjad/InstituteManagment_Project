@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+ {% block title %}
+<title>Show Department</title>
+ {% endblock %}
+{% block search %}
+    <ul class="navbar-nav ml-auto ">
+        <form method="post" class="form-inline" style="margin-right:auto">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" name="searchdata" placeholder="Search" aria-label="Search" required>
+            <button class="btn btn-success " type="submit">Department</button>
+        </form>
+    </ul>
+{% endblock %}
+{% block content %}
+<h1 style="text-align:center";>Show Department</h1>
+<div class="container" style="width:50%;">
+<table class="table table-dark">
+<tr>
+    <th>Dept Id</th>
+    <th>Dept Name</th>
+    <th>Delete</th>
+    <th>Update</th>
+</tr>
+{% for dep in department %}
+<tr>
+    <td>{{dep.dept_id}}</td>
+    <td>{{dep.dept_name}}</td>
+    <td><a href="{% url 'delete_dept' dep.dept_name %}">
+        <button class="btn btn-danger">Delete</button></a></td>
+    <td><a href="{% url 'update_dept' dep.dept_name %}">
+        <button class="btn btn-warning">Update</button></a></td>
+</tr>
+{% endfor %}
+    </table>
+<br>
+<a href="{% url 'add_dept' %}"><button class="btn btn-success">Add Department</button></a>
+
+    </div>
+{% endblock %}
